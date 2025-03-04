@@ -1,4 +1,10 @@
+import { Pane } from 'tweakpane';
+const pane = new Pane({
+  title: 'Config',
+  expanded: true,
+});
 import type { MouseEvent, RefObject } from "react"
+import { PARAMS } from '../pane-config';
 
 const mouse = {
   pressed: false,
@@ -31,8 +37,8 @@ export function Canvas({ strokes, ref }: { strokes: { x: number; y: number }[]; 
     if (!ctx) return
 
     ctx.beginPath()
-    ctx.strokeStyle = "#00ff00"
-    ctx.lineWidth = 5
+    ctx.strokeStyle = PARAMS.drawingColor;
+    ctx.lineWidth = PARAMS.drawingWidth;
     ctx.moveTo(mouse.x, mouse.y)
     ctx.lineTo(x, y)
     ctx.stroke()
@@ -42,5 +48,5 @@ export function Canvas({ strokes, ref }: { strokes: { x: number; y: number }[]; 
     strokes.push({ x, y })
   }
 
-  return <canvas height={window.innerHeight} width={window.innerWidth} className="w-full h-full" ref={ref} onMouseDown={onMouseDown} onMouseMove={onMouseMove} onMouseUp={onMouseUp} />
+  return <canvas className="w-full h-full" ref={ref} onMouseDown={onMouseDown} onMouseMove={onMouseMove} onMouseUp={onMouseUp} />
 }
